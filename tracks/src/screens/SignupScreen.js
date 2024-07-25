@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { Input, Button } from 'react-native-elements';
-import Spacer from '../components/Spacer';
-import { Context as AuthContext } from '../context/AuthContext';
+import React, { useState, useContext } from "react";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Input, Button } from "react-native-elements";
+import Spacer from "../components/Spacer";
+import { Context as AuthContext } from "../context/AuthContext";
 
 const SignupScreen = ({ navigation }) => {
   const { state, signup } = useContext(AuthContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <View style={styles.container}>
@@ -30,12 +30,20 @@ const SignupScreen = ({ navigation }) => {
         autoCapitalize="none"
         autoCorrect={false}
       />
-        {state.errorMessage ? (
+      {state.errorMessage ? (
         <Text style={styles.errorMessage}>{state.errorMessage}</Text>
       ) : null}
       <Spacer>
-      <Button title="Sign Up" onPress={() => signup({ email, password })} />
+        <Button title="Sign Up" onPress={() => signup({ email, password })} />
       </Spacer>
+
+      <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+        <Spacer>
+          <Text style={styles.link}>
+            Already have an account? Sign in instead
+          </Text>
+        </Spacer>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -49,18 +57,21 @@ SignupScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
   h3: {
     fontSize: 18, // This is an example size; adjust as needed
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 250,
   },
   errorMessage: {
     fontSize: 16,
-    color: 'red',
+    color: "red",
     marginLeft: 15,
     marginTop: 15,
+  },
+  link: {
+    color: "blue",
   },
 });
 export default SignupScreen;
