@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -8,12 +8,31 @@ import {
   StatusBar,
 } from "react-native";
 import Map from "../components/Map";
+import { requestForegroundPermissionsAsync } from "expo-location";
 
 const TrackCreateScreen = () => {
+  const [err, setErr] = useState(null);
+
+  const startWatching = async () => {
+    try {
+      const { granted } = await requestForegroundPermissionsAsync();
+      if (!granted) {
+        throw new Error("Location permission not granted");
+      }
+    } catch (e) {
+      setErr(e);
+    }
+  };
+
+  useEffect(() => {
+    startWatching();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.h2}>Create a Track</Text>
       <Map />
+      {err ? <Text>Please grant us location access</Text> : null}
     </SafeAreaView>
   );
 };
