@@ -8,7 +8,11 @@ import {
   StatusBar,
 } from "react-native";
 import Map from "../components/Map";
-import { requestForegroundPermissionsAsync } from "expo-location";
+import {
+  requestForegroundPermissionsAsync,
+  watchPositionAsync,
+  Accuracy,
+} from "expo-location";
 import "../_mockLocation";
 
 
@@ -21,6 +25,16 @@ const TrackCreateScreen = () => {
       if (!granted) {
         throw new Error("Location permission not granted");
       }
+      await watchPositionAsync(
+        {
+          accuracy: Accuracy.BestForNavigation,
+          timeInterval: 1000,
+          distanceInterval: 10,
+        },
+        (location) => {
+          console.log(location);
+        }
+      );
     } catch (e) {
       setErr(e);
     }
