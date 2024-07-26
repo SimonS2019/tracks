@@ -17,7 +17,7 @@ const TrackCreateScreen = ({ isFocused }) => {
   const { addLocation } = useContext(LocationContext);
   const [err] = useLocation(isFocused, addLocation);
 
-  console.log(isFocused);
+  // console.log(isFocused);
 
   return (
     <SafeAreaView style={styles.container}>
