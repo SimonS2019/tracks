@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import Map from "../components/Map";
 import { requestForegroundPermissionsAsync } from "expo-location";
+import "../_mockLocation";
+
 
 const TrackCreateScreen = () => {
   const [err, setErr] = useState(null);
