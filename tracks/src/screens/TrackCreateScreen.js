@@ -8,20 +8,16 @@ import {
   StatusBar,
 } from "react-native";
 import Map from "../components/Map";
-import {
-  requestForegroundPermissionsAsync,
-  watchPositionAsync,
-  Accuracy,
-} from "expo-location";
+import { withNavigationFocus } from "react-navigation";
 import "../_mockLocation";
 import { Context as LocationContext } from "../context/LocationContext";
-import useLocation from '../hooks/useLocation';
+import useLocation from "../hooks/useLocation";
 
-const TrackCreateScreen = () => {
+const TrackCreateScreen = ({ isFocused }) => {
   const { addLocation } = useContext(LocationContext);
   const [err] = useLocation(addLocation);
 
-
+  console.log(isFocused);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -42,4 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TrackCreateScreen;
+export default withNavigationFocus(TrackCreateScreen);
