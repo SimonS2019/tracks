@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -13,10 +13,11 @@ import {
   watchPositionAsync,
   Accuracy,
 } from "expo-location";
-import "../_mockLocation";
-
+// import "../_mockLocation";
+import { Context as LocationContext } from "../context/LocationContext";
 
 const TrackCreateScreen = () => {
+  const { addLocation } = useContext(LocationContext);
   const [err, setErr] = useState(null);
 
   const startWatching = async () => {
@@ -32,7 +33,7 @@ const TrackCreateScreen = () => {
           distanceInterval: 10,
         },
         (location) => {
-          // console.log(location);
+          addLocation(location);
         }
       );
     } catch (e) {
