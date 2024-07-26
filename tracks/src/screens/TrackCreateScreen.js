@@ -13,7 +13,7 @@ import {
   watchPositionAsync,
   Accuracy,
 } from "expo-location";
-// import "../_mockLocation";
+import "../_mockLocation";
 import { Context as LocationContext } from "../context/LocationContext";
 
 const TrackCreateScreen = () => {
