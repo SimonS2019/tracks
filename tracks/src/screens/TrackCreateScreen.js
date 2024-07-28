@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import {
   View,
   StyleSheet,
@@ -16,12 +16,13 @@ import TrackForm from "../components/TrackForm";
 
 const TrackCreateScreen = ({ isFocused }) => {
   const { state, addLocation } = useContext(LocationContext);
-  const [err] = useLocation(isFocused, location => {
-    addLocation(location, state.recording);
-  });
-
-
-  // console.log(isFocused);
+  const callback = useCallback(
+    location => {
+      addLocation(location, state.recording);
+    },
+    [state.recording]
+  );
+  const [err] = useLocation(isFocused, callback);
 
   return (
     <SafeAreaView style={styles.container}>
